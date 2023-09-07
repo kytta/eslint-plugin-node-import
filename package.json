@@ -1,0 +1,34 @@
+{
+	"name": "eslint-plugin-node-import",
+	"version": "1.0.0",
+	"description": "Disallow imports of built-in Node.js modules without the `node:` prefix",
+	"keywords": [
+		"eslint",
+		"eslintplugin",
+		"eslint-plugin"
+	],
+	"author": "Nikita Karamov",
+	"main": "./lib/index.js",
+	"exports": "./lib/index.js",
+	"scripts": {
+		"lint": "pnpm run /^lint:/",
+		"lint:eslint-docs": "pnpm run update:eslint-docs --check",
+		"lint:js": "eslint .",
+		"test": "mocha tests --recursive",
+		"update:eslint-docs": "eslint-doc-generator"
+	},
+	"devDependencies": {
+		"eslint": "^8.48.0",
+		"eslint-doc-generator": "^1.4.3",
+		"eslint-plugin-eslint-plugin": "^5.1.1",
+		"eslint-plugin-n": "^16.0.2",
+		"mocha": "10.2.0"
+	},
+	"engines": {
+		"node": "^14.18.0 || ^16.0.0 || >= 18.0.0"
+	},
+	"peerDependencies": {
+		"eslint": ">=7"
+	},
+	"license": "ISC"
+}
