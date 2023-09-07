@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-node-import",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Disallow imports of built-in Node.js modules without the `node:` prefix",
 	"keywords": [
 		"eslint",
