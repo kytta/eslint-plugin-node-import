@@ -61,6 +61,7 @@ esmTester.run("prefer-node-protocol (import)", rule, {
 		{ code: "async function foo() {\nconst fs = await import(0);\n}" },
 		{ code: "async function foo() {\nconst fs = await import(`fs`);\n}" },
 		{ code: 'import "punycode/"' },
+		{ code: 'export const DEFAULT_REGION = "alt-ww"' },
 	],
 	invalid: [
 		{
