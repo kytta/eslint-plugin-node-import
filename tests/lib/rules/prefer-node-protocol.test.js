@@ -39,6 +39,11 @@ cjsTester.run("prefer-node-protocol (require)", rule, {
 			errors: [{ messageId: MESSAGE_ID }],
 			output: 'const fs = require("node:fs/promises")',
 		},
+		{
+			code: "const fs = require('fs/promises')",
+			errors: [{ messageId: MESSAGE_ID }],
+			output: "const fs = require('node:fs/promises')",
+		},
 	],
 });
 
@@ -88,6 +93,11 @@ esmTester.run("prefer-node-protocol (import)", rule, {
 			code: 'export {default} from "fs/promises";',
 			errors: [{ messageId: MESSAGE_ID }],
 			output: 'export {default} from "node:fs/promises";',
+		},
+		{
+			code: "import fs from 'fs';",
+			errors: [{ messageId: MESSAGE_ID }],
+			output: "import fs from 'node:fs';",
 		},
 	],
 });
