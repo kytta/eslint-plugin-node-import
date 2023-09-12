@@ -1,13 +1,16 @@
 {
 	"name": "eslint-plugin-node-import",
 	"version": "1.0.3",
-	"description": "Disallow imports of built-in Node.js modules without the `node:` prefix",
+	"description": "Enforce consistent use of the `node:` prefix when importing/requiring built-in Node.js modules.",
 	"keywords": [
 		"eslint",
 		"eslintplugin",
 		"eslint-plugin"
 	],
 	"author": "Nikita Karamov",
+	"contributors": [
+		"Már Örlygsson"
+	],
 	"main": "./lib/index.js",
 	"exports": "./lib/index.js",
 	"scripts": {

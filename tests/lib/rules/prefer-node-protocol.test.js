@@ -1,7 +1,9 @@
 const RuleTester = require("eslint").RuleTester;
 
 const rule = require("../../../lib/rules/prefer-node-protocol");
+
 const MESSAGE_ID = "prefer-node-protocol";
+const MESSAGE_ID_DISALLOW = "prefer-node-protocol:disallow";
 
 const cjsTester = new RuleTester({
 	env: {
@@ -13,39 +15,6 @@ const cjsTester = new RuleTester({
 		sourceType: "script",
 	},
 });
-cjsTester.run("prefer-node-protocol (require)", rule, {
-	valid: [
-		{ code: 'const fs = require("node:fs");' },
-		{ code: 'const fs = require("node:fs/promises");' },
-		{ code: "const fs = require(fs);" },
-		{ code: 'const fs = notRequire("fs");' },
-		{ code: 'const fs = foo.require("fs");' },
-		{ code: 'const fs = require.resolve("fs");' },
-		{ code: "const fs = require(`fs`);" },
-		{ code: 'const fs = require?.("fs");' },
-		{ code: 'const fs = require("fs", extra);' },
-		{ code: "const fs = require();" },
-		{ code: 'const fs = require(...["fs"]);' },
-		{ code: 'const fs = require("eslint");' },
-	],
-	invalid: [
-		{
-			code: 'const {promises} = require("fs")',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'const {promises} = require("node:fs")',
-		},
-		{
-			code: 'const fs = require("fs/promises")',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'const fs = require("node:fs/promises")',
-		},
-		{
-			code: "const fs = require('fs/promises')",
-			errors: [{ messageId: MESSAGE_ID }],
-			output: "const fs = require('node:fs/promises')",
-		},
-	],
-});
 
 const esmTester = new RuleTester({
 	env: {
@@ -56,48 +25,207 @@ const esmTester = new RuleTester({
 		sourceType: "module",
 	},
 });
-esmTester.run("prefer-node-protocol (import)", rule, {
+
+[[], [{ disallow: false }]].forEach((options) => {
+	const suffix = options[0] ? JSON.stringify(options[0]) : "(no options)";
+	cjsTester.run(`prefer-node-protocol (require) ${suffix}`, rule, {
+		valid: [
+			{ code: 'const fs = require("node:fs");', options },
+			{ code: 'const fs = require("node:fs/promises");', options },
+			{ code: "const fs = require(fs);", options },
+			{ code: 'const fs = notRequire("fs");', options },
+			{ code: 'const fs = foo.require("fs");', options },
+			{ code: 'const fs = require.resolve("fs");', options },
+			{ code: "const fs = require(`fs`);", options },
+			{ code: 'const fs = require?.("fs");', options },
+			{ code: 'const fs = require("fs", extra);', options },
+			{ code: "const fs = require();", options },
+			{ code: 'const fs = require(...["fs"]);', options },
+			{ code: 'const fs = require("eslint");', options },
+		],
+		invalid: [
+			{
+				code: 'const {promises} = require("fs")',
+				errors: [{ messageId: MESSAGE_ID }],
+				output: 'const {promises} = require("node:fs")',
+				options,
+			},
+			{
+				code: 'const fs = require("fs/promises")',
+				errors: [{ messageId: MESSAGE_ID }],
+				output: 'const fs = require("node:fs/promises")',
+				options,
+			},
+			{
+				code: "const fs = require('fs/promises')",
+				errors: [{ messageId: MESSAGE_ID }],
+				output: "const fs = require('node:fs/promises')",
+				options,
+			},
+		],
+	});
+
+	esmTester.run(`prefer-node-protocol (import) ${suffix}`, rule, {
+		valid: [
+			{ code: 'import eslint from "eslint";', options },
+			{ code: 'import fs from "./fs";', options },
+			{ code: 'import fs from "unknown-builtin-module";', options },
+			{ code: 'import fs from "node:fs";', options },
+			{
+				code: "async function foo() {\nconst fs = await import(fs);\n}",
+				options,
+			},
+			{
+				code: "async function foo() {\nconst fs = await import(0);\n}",
+				options,
+			},
+			{
+				code: "async function foo() {\nconst fs = await import(`fs`);\n}",
+				options,
+			},
+			{ code: 'import "punycode/"', options },
+			{ code: 'export const DEFAULT_REGION = "alt-ww"', options },
+		],
+		invalid: [
+			{
+				code: 'import fs from "fs";',
+				errors: [{ messageId: MESSAGE_ID }],
+				output: 'import fs from "node:fs";',
+				options,
+			},
+			{
+				code: 'export {promises} from "fs";',
+				errors: [{ messageId: MESSAGE_ID }],
+				output: 'export {promises} from "node:fs";',
+				options,
+			},
+			{
+				code: 'async function foo() {\nconst fs = await import("fs");\n}',
+				errors: [{ messageId: MESSAGE_ID }],
+				output:
+					'async function foo() {\nconst fs = await import("node:fs");\n}',
+				options,
+			},
+			{
+				code: 'import fs from "fs/promises";',
+				errors: [{ messageId: MESSAGE_ID }],
+				output: 'import fs from "node:fs/promises";',
+				options,
+			},
+			{
+				code: 'export {default} from "fs/promises";',
+				errors: [{ messageId: MESSAGE_ID }],
+				output: 'export {default} from "node:fs/promises";',
+				options,
+			},
+			{
+				code: "import fs from 'fs';",
+				errors: [{ messageId: MESSAGE_ID }],
+				output: "import fs from 'node:fs';",
+				options,
+			},
+		],
+	});
+});
+
+// ---------------------------------------------------------------------------
+
+const options = [{ disallow: true }];
+
+cjsTester.run("prefer-node-protocol:disallow (require)", rule, {
 	valid: [
-		{ code: 'import eslint from "eslint";' },
-		{ code: 'import fs from "./fs";' },
-		{ code: 'import fs from "unknown-builtin-module";' },
-		{ code: 'import fs from "node:fs";' },
-		{ code: "async function foo() {\nconst fs = await import(fs);\n}" },
-		{ code: "async function foo() {\nconst fs = await import(0);\n}" },
-		{ code: "async function foo() {\nconst fs = await import(`fs`);\n}" },
-		{ code: 'import "punycode/"' },
-		{ code: 'export const DEFAULT_REGION = "alt-ww"' },
+		{ code: 'const fs = require("fs");', options },
+		{ code: 'const fs = require("fs/promises");', options },
+		{ code: "const fs = require(fs);", options },
+		{ code: 'const fs = notRequire("node:fs");', options },
+		{ code: 'const fs = foo.require("node:fs");', options },
+		{ code: 'const fs = require.resolve("node:fs");', options },
+		{ code: "const fs = require(`node:fs`);", options },
+		{ code: 'const fs = require?.("node:fs");', options },
+		{ code: 'const fs = require("node:fs", extra);', options },
+		{ code: "const fs = require();", options },
+		{ code: 'const fs = require(...["node:fs"]);', options },
+		{ code: 'const fs = require("eslint");', options },
 	],
 	invalid: [
 		{
-			code: 'import fs from "fs";',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'import fs from "node:fs";',
+			code: 'const {promises} = require("node:fs")',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'const {promises} = require("fs")',
+			options,
 		},
 		{
-			code: 'export {promises} from "fs";',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'export {promises} from "node:fs";',
+			code: 'const fs = require("node:fs/promises")',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'const fs = require("fs/promises")',
+			options,
 		},
 		{
-			code: 'async function foo() {\nconst fs = await import("fs");\n}',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'async function foo() {\nconst fs = await import("node:fs");\n}',
+			code: "const fs = require('node:fs/promises')",
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: "const fs = require('fs/promises')",
+			options,
+		},
+	],
+});
+
+esmTester.run("prefer-node-protocol:disallow (import)", rule, {
+	valid: [
+		{ code: 'import eslint from "eslint";', options },
+		{ code: 'import fs from "./node:fs";', options },
+		{ code: 'import fs from "unknown-builtin-module";', options },
+		{ code: 'import fs from "fs";', options },
+		{
+			code: "async function foo() {\nconst fs = await import(fs);\n}",
+			options,
 		},
 		{
-			code: 'import fs from "fs/promises";',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'import fs from "node:fs/promises";',
+			code: "async function foo() {\nconst fs = await import(0);\n}",
+			options,
 		},
 		{
-			code: 'export {default} from "fs/promises";',
-			errors: [{ messageId: MESSAGE_ID }],
-			output: 'export {default} from "node:fs/promises";',
+			code: "async function foo() {\nconst fs = await import(`node:fs`);\n}",
+			options,
+		},
+		{ code: 'import "punycode/"', options },
+		{ code: 'export const DEFAULT_REGION = "alt-ww"', options },
+	],
+	invalid: [
+		{
+			code: 'import fs from "node:fs";',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'import fs from "fs";',
+			options,
 		},
 		{
-			code: "import fs from 'fs';",
-			errors: [{ messageId: MESSAGE_ID }],
-			output: "import fs from 'node:fs';",
+			code: 'export {promises} from "node:fs";',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'export {promises} from "fs";',
+			options,
+		},
+		{
+			code: 'async function foo() {\nconst fs = await import("node:fs");\n}',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'async function foo() {\nconst fs = await import("fs");\n}',
+			options,
+		},
+		{
+			code: 'import fs from "node:fs/promises";',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'import fs from "fs/promises";',
+			options,
+		},
+		{
+			code: 'export {default} from "node:fs/promises";',
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: 'export {default} from "fs/promises";',
+			options,
+		},
+		{
+			code: "import fs from 'node:fs';",
+			errors: [{ messageId: MESSAGE_ID_DISALLOW }],
+			output: "import fs from 'fs';",
+			options,
 		},
 	],
 });
