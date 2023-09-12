@@ -8,6 +8,10 @@
 		"eslint-plugin"
 	],
 	"author": "Nikita Karamov",
+	"contributors": [
+		"Andrey Sitnik <andrey@sitnik.ru>",
+		"Már Örlygsson"
+	],
 	"main": "./lib/index.js",
 	"exports": "./lib/index.js",
 	"scripts": {
