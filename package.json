@@ -7,7 +7,7 @@
 		"eslintplugin",
 		"eslint-plugin"
 	],
-	"author": "Nikita Karamov",
+	"author": "Nikita Karamov <me@kytta.dev>",
 	"contributors": [
 		"Andrey Sitnik <andrey@sitnik.ru>",
 		"Már Örlygsson"
