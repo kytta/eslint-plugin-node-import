@@ -27,6 +27,7 @@ cjsTester.run("prefer-node-protocol (require)", rule, {
 		{ code: "const fs = require();" },
 		{ code: 'const fs = require(...["fs"]);' },
 		{ code: 'const fs = require("eslint");' },
+		{ code: 'const test = require("node:test");' },
 	],
 	invalid: [
 		{
@@ -67,6 +68,7 @@ esmTester.run("prefer-node-protocol (import)", rule, {
 		{ code: "async function foo() {\nconst fs = await import(`fs`);\n}" },
 		{ code: 'import "punycode/"' },
 		{ code: 'export const DEFAULT_REGION = "alt-ww"' },
+		{ code: 'import test from "node:test";' },
 	],
 	invalid: [
 		{
