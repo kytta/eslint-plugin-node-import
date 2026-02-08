@@ -18,18 +18,57 @@ npm install eslint-plugin-node-import --save-dev
 
 ## Usage
 
-Add `node-import` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+## Flat config (`eslint.config.js`)
+
+### Preset config
+
+Extend this plugin's `recommended` config:
+
+```js
+const nodeImport = require('eslint-plugin-node-import');
+
+module.exports = [
+	...nodeImport.configs["flat/recommended"],
+	// your config
+]
+```
+
+### Manual
+
+Add `node-import` to the `plugins` section of your configuration and configure the (only) rule under the `rules` section:
+
+```js
+const nodeImport = require('eslint-plugin-node-import');
+
+module.exports = [
+	{
+		plugins: {"node-import": nodeImport},
+		rules: {
+			"node-import/prefer-node-protocol": "error"
+		}
+	}
+]
+```
+
+## Legacy config (`.eslintrc.*`)
+
+### Preset config
+
+Extend this plugin's `recommended` config:
 
 ```json
 {
-	"plugins": ["node-import"]
+	"extends": ["plugin:node-import/recommended"]
 }
 ```
 
-Then configure the (only) rule under the `rules` section.
+### Manual
+
+Add `node-import` to the `plugins` section of your `.eslintrc` configuration file and configure the (only) rule under the `rules` section:
 
 ```json
 {
+	"plugins": ["node-import"],
 	"rules": {
 		"node-import/prefer-node-protocol": 2
 	}
@@ -40,11 +79,13 @@ Then configure the (only) rule under the `rules` section.
 
 <!-- begin auto-generated rules list -->
 
+💼 Configurations enabled in.\
+✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                                       | Description                                                               | 🔧  |
-| :--------------------------------------------------------- | :------------------------------------------------------------------------ | :-- |
-| [prefer-node-protocol](docs/rules/prefer-node-protocol.md) | Prefer using the `node:` protocol when importing Node.js builtin modules. | 🔧  |
+| Name                                                       | Description                                                               | 💼 | 🔧 |
+| :--------------------------------------------------------- | :------------------------------------------------------------------------ | :- | :- |
+| [prefer-node-protocol](docs/rules/prefer-node-protocol.md) | Prefer using the `node:` protocol when importing Node.js builtin modules. | ✅  | 🔧 |
 
 <!-- end auto-generated rules list -->
 
