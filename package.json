@@ -35,6 +35,7 @@
 		"globals": "^17.3.0"
 	},
 	"devDependencies": {
+		"@types/eslint": "^8.56.12",
 		"eslint": "^8.57.1",
 		"eslint-doc-generator": "^1.7.1",
 		"eslint-plugin-eslint-plugin": "^5.5.1",
