@@ -10,8 +10,15 @@
 	"author": "Nikita Karamov <me@kytta.dev>",
 	"contributors": [
 		"Andrey Sitnik <andrey@sitnik.ru>",
-		"Már Örlygsson"
+		"Azat S <to@azat.io>",
+		"Már Örlygsson <mar.nospam@anomy.net>",
+		"Christopher Hiller <boneskull@boneskull.com>"
 	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kytta/eslint-plugin-node-import.git"
+	},
+	"bugs": "https://github.com/kytta/eslint-plugin-node-import/issues",
 	"main": "./lib/index.js",
 	"exports": "./lib/index.js",
 	"scripts": {
