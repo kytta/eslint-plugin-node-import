@@ -21,6 +21,9 @@
 		"test": "mocha tests --recursive",
 		"update:eslint-docs": "eslint-doc-generator"
 	},
+	"dependencies": {
+		"globals": "^17.3.0"
+	},
 	"devDependencies": {
 		"eslint": "^8.57.1",
 		"eslint-doc-generator": "^1.7.1",

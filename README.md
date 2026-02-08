@@ -18,6 +18,40 @@ npm install eslint-plugin-node-import --save-dev
 
 ## Usage
 
+## Flat config (`eslint.config.js`)
+
+### Preset config
+
+Extend this plugin's `recommended` config:
+
+```js
+const nodeImport = require('eslint-plugin-node-import');
+
+module.exports = [
+	...nodeImport.configs["flat/recommended"],
+	// your config
+]
+```
+
+### Manual
+
+Add `node-import` to the `plugins` section of your configuration and configure the (only) rule under the `rules` section:
+
+```js
+const nodeImport = require('eslint-plugin-node-import');
+
+module.exports = [
+	{
+		plugins: {"node-import": nodeImport},
+		rules: {
+			"node-import/prefer-node-protocol": "error"
+		}
+	}
+]
+```
+
+## Legacy config (`.eslintrc.*`)
+
 ### Preset config
 
 Extend this plugin's `recommended` config:
