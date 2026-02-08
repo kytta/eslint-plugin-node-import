@@ -42,9 +42,9 @@ Then configure the (only) rule under the `rules` section.
 
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                                       | Description                                                               | 🔧  |
-| :--------------------------------------------------------- | :------------------------------------------------------------------------ | :-- |
-| [prefer-node-protocol](docs/rules/prefer-node-protocol.md) | Prefer using the `node:` protocol when importing Node.js builtin modules. | 🔧  |
+| Name                                                       | Description                                                               | 🔧 |
+| :--------------------------------------------------------- | :------------------------------------------------------------------------ | :- |
+| [prefer-node-protocol](docs/rules/prefer-node-protocol.md) | Prefer using the `node:` protocol when importing Node.js builtin modules. | 🔧 |
 
 <!-- end auto-generated rules list -->
 
