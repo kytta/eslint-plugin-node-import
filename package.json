@@ -19,6 +19,7 @@
 		"url": "git+https://github.com/kytta/eslint-plugin-node-import.git"
 	},
 	"bugs": "https://github.com/kytta/eslint-plugin-node-import/issues",
+	"type": "commonjs",
 	"main": "./lib/index.js",
 	"exports": "./lib/index.js",
 	"scripts": {
