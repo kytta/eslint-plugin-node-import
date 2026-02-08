@@ -21,6 +21,7 @@
 	"bugs": "https://github.com/kytta/eslint-plugin-node-import/issues",
 	"type": "commonjs",
 	"main": "./lib/index.js",
+	"types": "./lib/index.d.ts",
 	"exports": "./lib/index.js",
 	"scripts": {
 		"lint": "pnpm run /^lint:/",
