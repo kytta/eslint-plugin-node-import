@@ -19,14 +19,19 @@
 		"url": "git+https://github.com/kytta/eslint-plugin-node-import.git"
 	},
 	"bugs": "https://github.com/kytta/eslint-plugin-node-import/issues",
+	"type": "commonjs",
 	"main": "./lib/index.js",
+	"types": "./lib/index.d.ts",
 	"exports": "./lib/index.js",
 	"scripts": {
 		"lint": "pnpm run /^lint:/",
 		"lint:eslint-docs": "pnpm run update:eslint-docs --check",
 		"lint:js": "eslint .",
-		"test": "mocha tests --recursive",
+		"test": "mocha tests --recursive && tsd",
 		"update:eslint-docs": "eslint-doc-generator"
+	},
+	"tsd": {
+		"directory": "tests"
 	},
 	"files": [
 		"lib/"
@@ -35,11 +40,13 @@
 		"globals": "^17.3.0"
 	},
 	"devDependencies": {
+		"@types/eslint": "^8.56.12",
 		"eslint": "^8.57.1",
 		"eslint-doc-generator": "^1.7.1",
 		"eslint-plugin-eslint-plugin": "^5.5.1",
 		"eslint-plugin-n": "^16.6.2",
-		"mocha": "10.2.0"
+		"mocha": "10.2.0",
+		"tsd": "^0.33.0"
 	},
 	"engines": {
 		"node": "^14.18.0 || ^16.0.0 || >= 18.0.0"
