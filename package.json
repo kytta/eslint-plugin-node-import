@@ -37,7 +37,7 @@
 		"lib/"
 	],
 	"dependencies": {
-		"globals": "^17.3.0"
+		"globals": "12.x - 17.x"
 	},
 	"devDependencies": {
 		"@types/eslint": "^8.56.12",
