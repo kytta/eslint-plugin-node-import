@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       globals:
-        specifier: ^17.3.0
+        specifier: 12.x - 17.x
         version: 17.3.0
     devDependencies:
       '@types/eslint':
