@@ -1,4 +1,4 @@
-const RuleTester = require("eslint").RuleTester;
+const RuleTester = require("../../RuleTester").NodeRuleTester;
 
 const rule = require("../../../lib/rules/prefer-node-protocol");
 const MESSAGE_ID = "prefer-node-protocol";

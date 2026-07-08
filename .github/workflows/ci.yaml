@@ -1,0 +1,76 @@
+name: Node.js CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+          check-latest: true
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm run lint
+
+  unit:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22, 24, 26]
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+          check-latest: true
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm pack
+
+  integration:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16, 18, 20, 22, 24, 26]
+        eslint-version: [7, 8, 9, 10]
+        exclude:
+        - eslint-version: 9
+          node-version: 14
+        - eslint-version: 9
+          node-version: 16
+        - eslint-version: 10
+          node-version: 14
+        - eslint-version: 10
+          node-version: 16
+        - eslint-version: 10
+          node-version: 18
