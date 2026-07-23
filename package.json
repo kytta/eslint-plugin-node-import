@@ -27,7 +27,8 @@
 		"lint": "pnpm run /^lint:/",
 		"lint:eslint-docs": "pnpm run update:eslint-docs --check",
 		"lint:js": "eslint .",
-		"test": "mocha tests --recursive && tsd",
+		"integration": "mocha tests/integration --recursive",
+		"test": "mocha tests/lib --recursive && tsd",
 		"update:eslint-docs": "eslint-doc-generator"
 	},
 	"tsd": {

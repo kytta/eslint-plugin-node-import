@@ -1,0 +1,9 @@
+catalogs:
+  eslint7:
+    eslint: ^7.0.0
+  eslint8:
+    eslint: ^8.21.0
+  eslint9:
+    eslint: ^9.0.0
+  eslint10:
+    eslint: ^10.0.0
