@@ -1,0 +1,43 @@
+# ESLint 7 — legacy only
+- eslint: 7
+  config: .eslintrc.cjs
+- eslint: 7
+  config: .eslintrc.recommended.cjs
+
+# ESLint 8 — legacy + flat
+- eslint: 8
+  config: .eslintrc.cjs
+- eslint: 8
+  config: .eslintrc.recommended.cjs
+- eslint: 8
+  config: eslint.config.cjs
+- eslint: 8
+  config: eslint.config.mjs
+- eslint: 8
+  config: eslint.config.recommended.cjs
+- eslint: 8
+  config: eslint.config.recommended.mjs
+
+# ESLint 9 — legacy (ESLINT_USE_FLAT_CONFIG=false) + flat (default)
+- eslint: 9
+  config: .eslintrc.cjs
+- eslint: 9
+  config: .eslintrc.recommended.cjs
+- eslint: 9
+  config: eslint.config.cjs
+- eslint: 9
+  config: eslint.config.mjs
+- eslint: 9
+  config: eslint.config.recommended.cjs
+- eslint: 9
+  config: eslint.config.recommended.mjs
+
+# ESLint 10 — flat only
+- eslint: 10
+  config: eslint.config.cjs
+- eslint: 10
+  config: eslint.config.mjs
+- eslint: 10
+  config: eslint.config.recommended.cjs
+- eslint: 10
+  config: eslint.config.recommended.mjs
