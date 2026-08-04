@@ -1,16 +1,16 @@
 const RuleTester = require("eslint").RuleTester;
+const globals = require("globals");
 
 const rule = require("../../../lib/rules/prefer-node-protocol");
 const MESSAGE_ID = "prefer-node-protocol";
 
 const cjsTester = new RuleTester({
-	env: {
-		node: true,
-		commonjs: true,
-	},
-	parserOptions: {
-		ecmaVersion: "latest",
-		sourceType: "script",
+	languageOptions: {
+		sourceType: "commonjs",
+		globals: {
+			...globals.node,
+			...globals.commonjs,
+		},
 	},
 });
 cjsTester.run("prefer-node-protocol (require)", rule, {
@@ -49,12 +49,11 @@ cjsTester.run("prefer-node-protocol (require)", rule, {
 });
 
 const esmTester = new RuleTester({
-	env: {
-		node: true,
-	},
-	parserOptions: {
-		ecmaVersion: "latest",
+	languageOptions: {
 		sourceType: "module",
+		globals: {
+			...globals.node,
+		},
 	},
 });
 esmTester.run("prefer-node-protocol (import)", rule, {
