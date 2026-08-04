@@ -1,3 +1,9 @@
+if (!("structuredClone" in globalThis)) {
+  // eslint-disable-next-line n/no-unsupported-features/node-builtins
+  globalThis.structuredClone = require("@ungap/structured-clone");
+}
+
+
 const RuleTester = require("eslint").RuleTester;
 const globals = require("globals");
 
