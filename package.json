@@ -30,6 +30,11 @@
 		"test": "mocha tests --recursive && tsd",
 		"update:eslint-docs": "eslint-doc-generator"
 	},
+	"eslint-doc-generator": {
+		"ignoreConfig": [
+			"flat/recommended"
+		]
+	},
 	"tsd": {
 		"directory": "tests"
 	},
@@ -40,11 +45,12 @@
 		"globals": "^17.3.0"
 	},
 	"devDependencies": {
-		"@eslint/js": "^8.57.1",
-		"@types/eslint": "^8.56.12",
-		"eslint": "^8.57.1",
-		"eslint-doc-generator": "^1.7.1",
-		"eslint-plugin-eslint-plugin": "^6.5.0",
+		"@eslint/js": "^9.39.5",
+		"@types/ungap__structured-clone": "^1.2.0",
+		"@ungap/structured-clone": "^1.3.3",
+		"eslint": "^9.39.5",
+		"eslint-doc-generator": "^3.7.0",
+		"eslint-plugin-eslint-plugin": "^7.6.0",
 		"eslint-plugin-n": "^18.2.2",
 		"mocha": "10.2.0",
 		"tsd": "^0.33.0"
