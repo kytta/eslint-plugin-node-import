@@ -1,4 +1,6 @@
-# Prefer using the `node:` protocol when importing Node.js builtin modules (`node-import/prefer-node-protocol`)
+# node-import/prefer-node-protocol
+
+📝 Prefer using the `node:` protocol when importing Node.js builtin modules.
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
